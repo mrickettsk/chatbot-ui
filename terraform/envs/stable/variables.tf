@@ -29,3 +29,8 @@ variable "openai_api_url" {
   description = "The Azure OpenAI API URL to use for the chatbot"
   sensitive   = true
 }
+
+variable "allowed_inbound_ips" {
+  type    = list(string)
+  default = [""]
+}

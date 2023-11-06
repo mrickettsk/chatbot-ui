@@ -37,7 +37,7 @@ module "app_service" {
   os_type             = "Linux"
   apps                = local.apps
   registry_name       = "https://ghcr.io"
-  allowed_inbound_ips = []
+  allowed_inbound_ips = var.allowed_inbound_ips
 
   tags = local.tags
 }
