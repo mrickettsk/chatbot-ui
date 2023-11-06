@@ -26,6 +26,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Create env for make
+        run: |
+          touch .env
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
