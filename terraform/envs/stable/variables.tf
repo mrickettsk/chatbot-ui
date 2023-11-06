@@ -31,7 +31,7 @@ variable "openai_api_url" {
 }
 
 variable "allowed_inbound_ips" {
-  type    = list(string)
-  default = [""]
+  type      = list(string)
+  default   = [""]
   sensitive = true
 }

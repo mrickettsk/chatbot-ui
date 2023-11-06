@@ -48,8 +48,8 @@ variable "user_assigned_client_identity" {
 }
 
 variable "allowed_inbound_ips" {
-  type    = list(string)
-  default = [""]
+  type      = list(string)
+  default   = [""]
   sensitive = true
 }
 
