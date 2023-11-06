@@ -28,16 +28,16 @@ resource "azurerm_resource_group" "rg" {
 }
 
 module "app_service" {
-  source                  = "../../modules/app_services"
-  environment             = var.environment
-  project                 = "chatbotui"
-  resource_group_name     = azurerm_resource_group.rg.name
-  location                = azurerm_resource_group.rg.location
-  sku_name                = "B1"
-  os_type                 = "Linux"
-  apps                    = local.apps
-  registry_name           = "https://ghcr.io"
-  allowed_inbound_ips     = []
+  source              = "../../modules/app_services"
+  environment         = var.environment
+  project             = "chatbotui"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  sku_name            = "B1"
+  os_type             = "Linux"
+  apps                = local.apps
+  registry_name       = "https://ghcr.io"
+  allowed_inbound_ips = []
 
   tags = local.tags
 }

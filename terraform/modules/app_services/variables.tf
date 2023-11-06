@@ -43,27 +43,27 @@ variable "user_assigned_identity" {
 }
 
 variable "user_assigned_client_identity" {
-  type = string
+  type    = string
   default = ""
 }
 
 variable "allowed_inbound_ips" {
-  type = list(string)
+  type    = list(string)
   default = [""]
 }
 
 variable "key_vault_id" {
-  type = string
+  type    = string
   default = ""
 }
 
 variable "dns_zone_name" {
-  type = string
+  type    = string
   default = ""
 }
 
 variable "dns_resource_group_name" {
-  type = string
+  type    = string
   default = ""
 }
 

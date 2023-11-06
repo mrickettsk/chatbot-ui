@@ -19,8 +19,8 @@ resource "azurerm_linux_web_app" "apps" {
   app_settings = each.value.app_vars
 
   site_config {
-    ftps_state                                    = "Disabled"
-    always_on                                     = "true"
+    ftps_state = "Disabled"
+    always_on  = "true"
 
     application_stack {
       docker_image_name   = each.value.docker_image_name
