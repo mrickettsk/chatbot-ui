@@ -55,7 +55,6 @@ jobs:
           make tf-init
 
       - name: 'Terraform Plan'
-        env:
         run: |
           make tf-plan
 
