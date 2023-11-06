@@ -38,3 +38,13 @@ yarn-error.log*
 next-env.d.ts
 .idea
 pnpm-lock.yaml
+
+#all terraform files 
+*.tfstate
+*.tfstate.backup
+*.tfplan
+.terraform
+.terraform.lock.hcl
+
+# env file
+.env
