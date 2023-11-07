@@ -11,12 +11,12 @@ locals {
       docker_image_name = "mrickettsk/chatbot-ui:${var.image_tag}"
 
       app_vars = {
-        OPENAI_API_KEY       = var.openai_api_key
-        OPENAI_API_TYPE      = "azure"
-        OPENAI_DEPLOYMENT_ID = "default"
-        OPENAI_API_HOST      = var.openai_api_url
-        OPENAI_API_VERSION   = "2023-03-15-preview"
-        WEBSITES_PORT        = "3000"
+        OPENAI_API_KEY      = var.openai_api_key
+        OPENAI_API_TYPE     = "azure"
+        AZURE_DEPLOYMENT_ID = "default"
+        OPENAI_API_HOST     = var.openai_api_url
+        OPENAI_API_VERSION  = "2023-03-15-preview"
+        WEBSITES_PORT       = "3000"
       }
     }
   }

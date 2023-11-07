@@ -68,6 +68,11 @@ variable "dns_resource_group_name" {
   default = ""
 }
 
+variable "auth_settings" {
+  type    = map(any)
+  default = {}
+}
+
 variable "tags" {
   description = "Tags that should be applied to resources created by this module. Runtime tag values will take precedent over compile time values"
   type        = map(string)

@@ -15,9 +15,14 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "=3.79.0"
     }
+    azuread = {
+      source  = "hashicorp/azuread"
+      version = "2.45.0"
+    }
   }
 }
-
+provider "azuread" {
+}
 provider "azurerm" {
   skip_provider_registration = true
   features {}

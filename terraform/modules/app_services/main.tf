@@ -1,3 +1,13 @@
+module "app_registration" {
+  source = "../app_registration"
+
+  for_each    = var.apps
+  project     = var.project
+  name        = each.value.name
+  environment = var.environment
+  location    = var.location
+}
+
 resource "azurerm_service_plan" "plan" {
   name                = format("plan-%s-%s-%s-001", var.environment, var.project, var.location)
   location            = var.location
@@ -16,7 +26,7 @@ resource "azurerm_linux_web_app" "apps" {
   service_plan_id     = azurerm_service_plan.plan.id
   tags                = var.tags
 
-  app_settings = each.value.app_vars
+  app_settings = merge({ "MICROSOFT_PROVIDER_AUTHENTICATION_SECRET" = module.app_registration[each.key].client_secret }, each.value.app_vars)
 
   site_config {
     ftps_state = "Disabled"
@@ -26,21 +36,23 @@ resource "azurerm_linux_web_app" "apps" {
       docker_image_name   = each.value.docker_image_name
       docker_registry_url = var.registry_name
     }
+  }
 
-    dynamic "ip_restriction" {
-      for_each = var.allowed_inbound_ips
-      content {
-        ip_address = contains(split("", ip_restriction.value), "/") ? ip_restriction.value : format("%s/32", ip_restriction.value)
-        priority   = 100
-      }
+  auth_settings_v2 {
+    auth_enabled           = true
+    require_authentication = true
+    unauthenticated_action = "RedirectToLoginPage"
+    default_provider       = "azureactivedirectory"
+
+    active_directory_v2 {
+      client_id                  = module.app_registration[each.key].client_id
+      tenant_auth_endpoint       = format("https://sts.windows.net/%s/v2.0", module.app_registration[each.key].tenant_id)
+      client_secret_setting_name = "MICROSOFT_PROVIDER_AUTHENTICATION_SECRET"
+      allowed_audiences          = [format("api://%s", module.app_registration[each.key].client_id)]
     }
 
-    dynamic "scm_ip_restriction" {
-      for_each = var.allowed_inbound_ips
-      content {
-        ip_address = contains(split("", ip_restriction.value), "/") ? ip_restriction.value : format("%s/32", ip_restriction.value)
-        priority   = 100
-      }
+    login {
+      token_store_enabled = true
     }
   }
 
@@ -114,4 +126,8 @@ locals {
     hostname    = v.records.hostname
     certificate = v.records.certificate
   } if can(v.records) }
+
+  auth_settings = merge({
+    auth_enabled = false
+  }, var.auth_settings)
 }
