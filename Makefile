@@ -32,3 +32,6 @@ tf-plan:
 
 tf-apply:
 	cd terraform/envs/stable && terraform apply -auto-approve out.tfplan
+
+tf-destroy:
+	cd terraform/envs/stable && terraform destroy -auto-approve -var="openai_api_key=${OPENAI_API_KEY}" -var="openai_api_url=${OPENAI_API_URL}"
